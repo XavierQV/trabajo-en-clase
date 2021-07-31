@@ -1,0 +1,72 @@
+﻿@model List<Datos.Models.Socio>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @if (item.Estado == 1)
+                {
+                    <label>Activado</label>
+                }
+                else
+                {
+                <label>Desactivado</label>
+                }
+
+                
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Cedula }, new { onclick = "return confirm('¡Se editara esto!');" }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Cedula }, new { onclick = "return confirm('¡se mostraran detalles!');" }) |
+
+                @if (item.Estado == 1)
+                {
+                    @Html.ActionLink("Desactivar", "Desactivar", new { id = item.Cedula }, new { onclick = "return confirm('¡SE Desactivara ESTO!');" })
+
+                }
+                else
+                {
+                    @Html.ActionLink("Activar", "Activar", new { id = item.Cedula }, new { onclick = "return confirm('¡SE Activara ESTO!');" })
+
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
